@@ -40,6 +40,8 @@ public class EchoServer2 {
 				break;
 			}
 			// 받은 메시지를 다시 전송
+			dos.writeUTF(userMsg);
+			dos.flush();
 		}
 		
 		dis.close();
