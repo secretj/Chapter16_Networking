@@ -1,0 +1,329 @@
+public Socket(Proxy proxy)
+
+Creates an unconnected socket, specifying the type of proxy, if any,that should be used regardless of any other settings. 
+If there is a security manager, its checkConnect methodis called with the proxy host address and port numberas its arguments. This could result in a SecurityException. 
+
+Examples: 
+•Socket s = new Socket(Proxy.NO_PROXY); will createa plain socket ignoring any other proxy configuration.
+•Socket s = new Socket(new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("socks.mydom.com", 1080)));will create a socket connecting through the specified SOCKS proxyserver.
+Parameters:proxy - a Proxy object specifying what kindof proxying should be used.Throws:IllegalArgumentException - if the proxy is of an invalid typeor null.SecurityException - if a security manager is present andpermission to connect to the proxy isdenied.Since:1.5See Also:ProxySelector, Proxy
+  
+Socket
+protected Socket(SocketImpl impl)
+          throws SocketException
+
+Creates an unconnected Socket with a user-specifiedSocketImpl. 
+Parameters:impl - an instance of a SocketImplthe subclass wishes to use on the Socket.Throws:SocketException - if there is an error in the underlying protocol,such as a TCP error.Since:JDK1.1
+  
+Socket
+public Socket(String host,
+              int port)
+       throws UnknownHostException,
+              IOException
+
+Creates a stream socket and connects it to the specified portnumber on the named host. 
+If the specified host is null it is the equivalent ofspecifying the address as InetAddress.getByName(null).In other words, it is equivalent to specifying an address of theloopback interface. 
+
+If the application has specified a server socket factory, thatfactory's createSocketImpl method is called to createthe actual socket implementation. Otherwise a "plain" socket is created. 
+
+If there is a security manager, its checkConnect method is calledwith the host address and portas its arguments. This could result in a SecurityException.
+Parameters:host - the host name, or null for the loopback address.port - the port number.Throws:UnknownHostException - if the IP address ofthe host could not be determined.IOException - if an I/O error occurs when creating the socket.SecurityException - if a security manager exists and its checkConnect method doesn't allow the operation.IllegalArgumentException - if the port parameter is outsidethe specified range of valid port values, which is between0 and 65535, inclusive.See Also:setSocketImplFactory(java.net.SocketImplFactory), SocketImpl, SocketImplFactory.createSocketImpl(), SecurityManager.checkConnect(java.lang.String, int)
+  
+Socket
+public Socket(InetAddress address,
+              int port)
+       throws IOException
+
+Creates a stream socket and connects it to the specified portnumber at the specified IP address. 
+If the application has specified a socket factory, that factory's createSocketImpl method is called to create theactual socket implementation. Otherwise a "plain" socket is created. 
+
+If there is a security manager, its checkConnect method is calledwith the host address and portas its arguments. This could result in a SecurityException.
+Parameters:address - the IP address.port - the port number.Throws:IOException - if an I/O error occurs when creating the socket.SecurityException - if a security manager exists and its checkConnect method doesn't allow the operation.IllegalArgumentException - if the port parameter is outsidethe specified range of valid port values, which is between0 and 65535, inclusive.NullPointerException - if address is null.See Also:setSocketImplFactory(java.net.SocketImplFactory), SocketImpl, SocketImplFactory.createSocketImpl(), SecurityManager.checkConnect(java.lang.String, int)
+  
+Socket
+public Socket(String host,
+              int port,
+              InetAddress localAddr,
+              int localPort)
+       throws IOException
+
+Creates a socket and connects it to the specified remote host onthe specified remote port. The Socket will also bind() to the localaddress and port supplied. 
+If the specified host is null it is the equivalent ofspecifying the address as InetAddress.getByName(null).In other words, it is equivalent to specifying an address of theloopback interface. 
+
+A local port number of zero will let the system pick up afree port in the bind operation.
+
+If there is a security manager, its checkConnect method is calledwith the host address and portas its arguments. This could result in a SecurityException.
+Parameters:host - the name of the remote host, or null for the loopback address.port - the remote portlocalAddr - the local address the socket is bound to, or null for the anyLocal address.localPort - the local port the socket is bound to, or zero for a system selected free port.Throws:IOException - if an I/O error occurs when creating the socket.SecurityException - if a security manager exists and its checkConnect method doesn't allow the connectionto the destination, or if its checkListen methoddoesn't allow the bind to the local port.IllegalArgumentException - if the port parameter or localPortparameter is outside the specified range of valid port values,which is between 0 and 65535, inclusive.Since:JDK1.1See Also:SecurityManager.checkConnect(java.lang.String, int)
+  
+Socket
+public Socket(InetAddress address,
+              int port,
+              InetAddress localAddr,
+              int localPort)
+       throws IOException
+
+Creates a socket and connects it to the specified remote address onthe specified remote port. The Socket will also bind() to the localaddress and port supplied. 
+If the specified local address is null it is the equivalent ofspecifying the address as the AnyLocal address(see InetAddress.isAnyLocalAddress()). 
+
+A local port number of zero will let the system pick up afree port in the bind operation.
+
+If there is a security manager, its checkConnect method is calledwith the host address and portas its arguments. This could result in a SecurityException.
+Parameters:address - the remote addressport - the remote portlocalAddr - the local address the socket is bound to, or null for the anyLocal address.localPort - the local port the socket is bound to or zero for a system selected free port.Throws:IOException - if an I/O error occurs when creating the socket.SecurityException - if a security manager exists and its checkConnect method doesn't allow the connectionto the destination, or if its checkListen methoddoesn't allow the bind to the local port.IllegalArgumentException - if the port parameter or localPortparameter is outside the specified range of valid port values,which is between 0 and 65535, inclusive.NullPointerException - if address is null.Since:JDK1.1See Also:SecurityManager.checkConnect(java.lang.String, int)
+  
+Socket
+@Deprecated
+public Socket(String host,
+                          int port,
+                          boolean stream)
+                   throws IOException
+
+Deprecated. Use DatagramSocket instead for UDP transport.
+
+Creates a stream socket and connects it to the specified portnumber on the named host. 
+If the specified host is null it is the equivalent ofspecifying the address as InetAddress.getByName(null).In other words, it is equivalent to specifying an address of theloopback interface. 
+
+If the stream argument is true, this creates astream socket. If the stream argument is false, itcreates a datagram socket. 
+
+If the application has specified a server socket factory, thatfactory's createSocketImpl method is called to createthe actual socket implementation. Otherwise a "plain" socket is created. 
+
+If there is a security manager, its checkConnect method is calledwith the host address and portas its arguments. This could result in a SecurityException. 
+
+If a UDP socket is used, TCP/IP related socket options will not apply.
+Parameters:host - the host name, or null for the loopback address.port - the port number.stream - a boolean indicating whether this isa stream socket or a datagram socket.Throws:IOException - if an I/O error occurs when creating the socket.SecurityException - if a security manager exists and its checkConnect method doesn't allow the operation.IllegalArgumentException - if the port parameter is outsidethe specified range of valid port values, which is between0 and 65535, inclusive.See Also:setSocketImplFactory(java.net.SocketImplFactory), SocketImpl, SocketImplFactory.createSocketImpl(), SecurityManager.checkConnect(java.lang.String, int)
+  
+Socket
+@Deprecated
+public Socket(InetAddress host,
+                          int port,
+                          boolean stream)
+                   throws IOException
+
+Deprecated. Use DatagramSocket instead for UDP transport.
+
+Creates a socket and connects it to the specified port number atthe specified IP address. 
+If the stream argument is true, this creates astream socket. If the stream argument is false, itcreates a datagram socket. 
+
+If the application has specified a server socket factory, thatfactory's createSocketImpl method is called to createthe actual socket implementation. Otherwise a "plain" socket is created. 
+
+If there is a security manager, its checkConnect method is calledwith host.getHostAddress() and portas its arguments. This could result in a SecurityException. 
+
+If UDP socket is used, TCP/IP related socket options will not apply.
+Parameters:host - the IP address.port - the port number.stream - if true, create a stream socket;otherwise, create a datagram socket.Throws:IOException - if an I/O error occurs when creating the socket.SecurityException - if a security manager exists and its checkConnect method doesn't allow the operation.IllegalArgumentException - if the port parameter is outsidethe specified range of valid port values, which is between0 and 65535, inclusive.NullPointerException - if host is null.See Also:setSocketImplFactory(java.net.SocketImplFactory), SocketImpl, SocketImplFactory.createSocketImpl(), SecurityManager.checkConnect(java.lang.String, int)
+
+   
+Method Detail
+  
+connect
+public void connect(SocketAddress endpoint)
+             throws IOException
+
+Connects this socket to the server.
+Parameters:endpoint - the SocketAddressThrows:IOException - if an error occurs during the connectionIllegalBlockingModeException - if this socket has an associated channel,and the channel is in non-blocking modeIllegalArgumentException - if endpoint is null or is aSocketAddress subclass not supported by this socketSince:1.4
+  
+connect
+public void connect(SocketAddress endpoint,
+                    int timeout)
+             throws IOException
+
+Connects this socket to the server with a specified timeout value.A timeout of zero is interpreted as an infinite timeout. The connectionwill then block until established or an error occurs.
+Parameters:endpoint - the SocketAddresstimeout - the timeout value to be used in milliseconds.Throws:IOException - if an error occurs during the connectionSocketTimeoutException - if timeout expires before connectingIllegalBlockingModeException - if this socket has an associated channel,and the channel is in non-blocking modeIllegalArgumentException - if endpoint is null or is aSocketAddress subclass not supported by this socketSince:1.4
+  
+bind
+public void bind(SocketAddress bindpoint)
+          throws IOException
+
+Binds the socket to a local address. 
+If the address is null, then the system will pick upan ephemeral port and a valid local address to bind the socket.
+Parameters:bindpoint - the SocketAddress to bind toThrows:IOException - if the bind operation fails, or if the socketis already bound.IllegalArgumentException - if bindpoint is aSocketAddress subclass not supported by this socketSecurityException - if a security manager exists and its checkListen method doesn't allow the bindto the local port.Since:1.4See Also:isBound()
+  
+getInetAddress
+public InetAddress getInetAddress()
+
+Returns the address to which the socket is connected. 
+If the socket was connected prior to being closed,then this method will continue to return the connected addressafter the socket is closed.
+Returns:the remote IP address to which this socket is connected,or null if the socket is not connected.
+  
+getLocalAddress
+public InetAddress getLocalAddress()
+
+Gets the local address to which the socket is bound. 
+If there is a security manager set, its checkConnect method iscalled with the local address and -1 as its arguments to seeif the operation is allowed. If the operation is not allowed,the loopback address is returned.
+Returns:the local address to which the socket is bound,the loopback address if denied by the security manager, orthe wildcard address if the socket is closed or not bound yet.Since:JDK1.1See Also:SecurityManager.checkConnect(java.lang.String, int)
+  
+getPort
+public int getPort()
+
+Returns the remote port number to which this socket is connected. 
+If the socket was connected prior to being closed,then this method will continue to return the connected port numberafter the socket is closed.
+Returns:the remote port number to which this socket is connected, or0 if the socket is not connected yet.
+  
+getLocalPort
+public int getLocalPort()
+
+Returns the local port number to which this socket is bound. 
+If the socket was bound prior to being closed,then this method will continue to return the local port numberafter the socket is closed.
+Returns:the local port number to which this socket is bound or -1if the socket is not bound yet.
+  
+getRemoteSocketAddress
+public SocketAddress getRemoteSocketAddress()
+
+Returns the address of the endpoint this socket is connected to, or null if it is unconnected. 
+If the socket was connected prior to being closed,then this method will continue to return the connected addressafter the socket is closed.
+Returns:a SocketAddress representing the remote endpoint of thissocket, or null if it is not connected yet.Since:1.4See Also:getInetAddress(), getPort(), connect(SocketAddress, int), connect(SocketAddress)
+  
+getLocalSocketAddress
+public SocketAddress getLocalSocketAddress()
+
+Returns the address of the endpoint this socket is bound to. 
+If a socket bound to an endpoint represented by an InetSocketAddress  is closed,then this method will continue to return an InetSocketAddressafter the socket is closed. In that case the returned InetSocketAddress's address is the wildcard addressand its port is the local port that it was bound to. 
+
+If there is a security manager set, its checkConnect method iscalled with the local address and -1 as its arguments to seeif the operation is allowed. If the operation is not allowed,a SocketAddress representing the loopback address and the localport to which this socket is bound is returned.
+Returns:a SocketAddress representing the local endpoint ofthis socket, or a SocketAddress representing theloopback address if denied by the security manager, or null if the socket is not bound yet.Since:1.4See Also:getLocalAddress(), getLocalPort(), bind(SocketAddress), SecurityManager.checkConnect(java.lang.String, int)
+  
+getChannel
+public SocketChannel getChannel()
+
+Returns the unique SocketChannelobject associated with this socket, if any. 
+A socket will have a channel if, and only if, the channel itself wascreated via the SocketChannel.open or ServerSocketChannel.acceptmethods.
+Returns:the socket channel associated with this socket,or null if this socket was not createdfor a channelSince:1.4
+  
+getInputStream
+public InputStream getInputStream()
+                           throws IOException
+
+Returns an input stream for this socket. 
+If this socket has an associated channel then the resulting inputstream delegates all of its operations to the channel. If the channelis in non-blocking mode then the input stream's read operationswill throw an IllegalBlockingModeException. 
+
+Under abnormal conditions the underlying connection may bebroken by the remote host or the network software (for examplea connection reset in the case of TCP connections). When abroken connection is detected by the network software thefollowing applies to the returned input stream :- 
+
+•The network software may discard bytes that are bufferedby the socket. Bytes that aren't discarded by the networksoftware can be read using read. 
+
+
+•If there are no bytes buffered on the socket, or allbuffered bytes have been consumed by read, then all subsequentcalls to read will throw an IOException. 
+
+
+•If there are no bytes buffered on the socket, and thesocket has not been closed using close, then available willreturn 0. 
+
+
+Closing the returned InputStreamwill close the associated socket.
+Returns:an input stream for reading bytes from this socket.Throws:IOException - if an I/O error occurs when creating theinput stream, the socket is closed, the socket isnot connected, or the socket input has been shutdownusing shutdownInput()
+  
+getOutputStream
+public OutputStream getOutputStream()
+                             throws IOException
+
+Returns an output stream for this socket. 
+If this socket has an associated channel then the resulting outputstream delegates all of its operations to the channel. If the channelis in non-blocking mode then the output stream's writeoperations will throw an IllegalBlockingModeException. 
+
+Closing the returned OutputStreamwill close the associated socket.
+Returns:an output stream for writing bytes to this socket.Throws:IOException - if an I/O error occurs when creating theoutput stream or if the socket is not connected.
+  
+setTcpNoDelay
+public void setTcpNoDelay(boolean on)
+                   throws SocketException
+
+Enable/disable TCP_NODELAY(disable/enable Nagle's algorithm).
+Parameters:on - true to enable TCP_NODELAY, false to disable.Throws:SocketException - if there is an errorin the underlying protocol, such as a TCP error.Since:JDK1.1See Also:getTcpNoDelay()
+  
+getTcpNoDelay
+public boolean getTcpNoDelay()
+                      throws SocketException
+
+Tests if TCP_NODELAY is enabled.
+Returns:a boolean indicating whether or not TCP_NODELAY is enabled.Throws:SocketException - if there is an errorin the underlying protocol, such as a TCP error.Since:JDK1.1See Also:setTcpNoDelay(boolean)
+  
+setSoLinger
+public void setSoLinger(boolean on,
+                        int linger)
+                 throws SocketException
+
+Enable/disable SO_LINGER with thespecified linger time in seconds. The maximum timeout value is platformspecific.The setting only affects socket close.
+Parameters:on - whether or not to linger on.linger - how long to linger for, if on is true.Throws:SocketException - if there is an errorin the underlying protocol, such as a TCP error.IllegalArgumentException - if the linger value is negative.Since:JDK1.1See Also:getSoLinger()
+  
+getSoLinger
+public int getSoLinger()
+                throws SocketException
+
+Returns setting for SO_LINGER.-1 returns implies that theoption is disabled.The setting only affects socket close.
+Returns:the setting for SO_LINGER.Throws:SocketException - if there is an errorin the underlying protocol, such as a TCP error.Since:JDK1.1See Also:setSoLinger(boolean, int)
+  
+sendUrgentData
+public void sendUrgentData(int data)
+                    throws IOException
+
+Send one byte of urgent data on the socket. The byte to be sent is the lowest eightbits of the data parameter. The urgent byte issent after any preceding writes to the socket OutputStreamand before any future writes to the OutputStream.
+Parameters:data - The byte of data to sendThrows:IOException - if there is an errorsending the data.Since:1.4
+  
+setOOBInline
+public void setOOBInline(boolean on)
+                  throws SocketException
+
+Enable/disable SO_OOBINLINE(receipt of TCP urgent data)By default, this option is disabled and TCP urgent data received on asocket is silently discarded. If the user wishes to receive urgent data, thenthis option must be enabled. When enabled, urgent data is receivedinline with normal data. 
+Note, only limited support is provided for handling incoming urgentdata. In particular, no notification of incoming urgent data is providedand there is no capability to distinguish between normal data and urgentdata unless provided by a higher level protocol.
+Parameters:on - true to enable SO_OOBINLINE, false to disable.Throws:SocketException - if there is an errorin the underlying protocol, such as a TCP error.Since:1.4See Also:getOOBInline()
+  
+getOOBInline
+public boolean getOOBInline()
+                     throws SocketException
+
+Tests if SO_OOBINLINE is enabled.
+Returns:a boolean indicating whether or not SO_OOBINLINEis enabled.Throws:SocketException - if there is an errorin the underlying protocol, such as a TCP error.Since:1.4See Also:setOOBInline(boolean)
+  
+setSoTimeout
+public void setSoTimeout(int timeout)
+                  throws SocketException
+
+Enable/disable SO_TIMEOUTwith the specified timeout, in milliseconds. With this option setto a non-zero timeout, a read() call on the InputStream associated withthis Socket will block for only this amount of time. If the timeoutexpires, a java.net.SocketTimeoutException is raised, though theSocket is still valid. The option must be enabledprior to entering the blocking operation to have effect. Thetimeout must be > 0.A timeout of zero is interpreted as an infinite timeout.
+Parameters:timeout - the specified timeout, in milliseconds.Throws:SocketException - if there is an errorin the underlying protocol, such as a TCP error.Since:JDK 1.1See Also:getSoTimeout()
+  
+getSoTimeout
+public int getSoTimeout()
+                 throws SocketException
+
+Returns setting for SO_TIMEOUT.0 returns implies that the option is disabled (i.e., timeout of infinity).
+Returns:the setting for SO_TIMEOUTThrows:SocketException - if there is an errorin the underlying protocol, such as a TCP error.Since:JDK1.1See Also:setSoTimeout(int)
+  
+setSendBufferSize
+public void setSendBufferSize(int size)
+                       throws SocketException
+
+Sets the SO_SNDBUF option to thespecified value for this Socket.The SO_SNDBUF option is used by theplatform's networking code as a hint for the size to set the underlyingnetwork I/O buffers. 
+Because SO_SNDBUF is a hint,applications that want to verify what size the buffers were set toshould call getSendBufferSize().
+Parameters:size - the size to which to set the send buffersize. This value must be greater than 0.Throws:SocketException - if there is an errorin the underlying protocol, such as a TCP error.IllegalArgumentException - if thevalue is 0 or is negative.Since:1.2See Also:getSendBufferSize()
+  
+getSendBufferSize
+public int getSendBufferSize()
+                      throws SocketException
+
+Get value of the SO_SNDBUF optionfor this Socket, that is the buffer size used by the platformfor output on this Socket.
+Returns:the value of the SO_SNDBUFoption for this Socket.Throws:SocketException - if there is an errorin the underlying protocol, such as a TCP error.Since:1.2See Also:setSendBufferSize(int)
+  
+setReceiveBufferSize
+public void setReceiveBufferSize(int size)
+                          throws SocketException
+
+Sets the SO_RCVBUF option to thespecified value for this Socket. The SO_RCVBUF option isused by the platform's networking code as a hint for the size to setthe underlying network I/O buffers. 
+Increasing the receive buffer size can increase the performance ofnetwork I/O for high-volume connection, while decreasing it canhelp reduce the backlog of incoming data. 
+
+Because SO_RCVBUF is a hint,applications that want to verify what size the buffers were set toshould call getReceiveBufferSize(). 
+
+The value of SO_RCVBUF is also usedto set the TCP receive window that is advertized to the remote peer.Generally, the window size can be modified at any time when a socket isconnected. However, if a receive window larger than 64K is required thenthis must be requested before the socket is connected to theremote peer. There are two cases to be aware of: 
+1.For sockets accepted from a ServerSocket, this must be done by calling ServerSocket.setReceiveBufferSize(int) before the ServerSocketis bound to a local address.
+
+2.For client sockets, setReceiveBufferSize() must be called beforeconnecting the socket to its remote peer.
+Parameters:size - the size to which to set the receive buffersize. This value must be greater than 0.Throws:IllegalArgumentException - if the value is 0 or isnegative.SocketException - if there is an errorin the underlying protocol, such as a TCP error.Since:1.2See Also:getReceiveBufferSize(), ServerSocket.setReceiveBufferSize(int)
+  
+getReceiveBufferSize
+public int getReceiveBufferSize()
+                         throws SocketException
+
+Gets the value of the SO_RCVBUF optionfor this Socket, that is the buffer size used by the platformfor input on this Socket.
+Returns:the value of the SO_RCVBUFoption for this Socket.Throws:SocketException - if there is an errorin the underlying protocol, such as a TCP error.Since:1.2See Also:setReceiveBufferSize(int)
+  
+setKeepAlive
+public void setKeepAlive(boolean on)
+                  throws SocketException
+
+Enable/disable SO_KEEPALIVE.
+Parameters:on - whether or not to have socket keep alive turned on.Throws:SocketException - if there is an errorin the underlying protocol, such as a TCP error.Since:1.3See Also:getKeepAlive()
+

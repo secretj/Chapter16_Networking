@@ -17,9 +17,10 @@ public class EchoServer2 {
 		ServerSocket server =new ServerSocket(8112);
 		System.out.println("서버 준비 완료");
 		
+		
 		Socket socket =server.accept();  //클라이언트 오기전까지 대기
 		System.out.println("클라이언트 연결 완료");
-		
+			
 		//클라이언트 IP 주소
 		System.out.println(socket.getInetAddress());
 		
